@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,7 +15,7 @@ public class UserDao {
 		Connection conn = null;
 		try {
 			conn = DBManager.getConnection();
-			String sql = "SELECT * FROM user WHERE login_id = ? and password = ?";
+			String sql = "SELECT * FROM user WHERE login_id = ? nad password = ?";
 
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1,loginId);

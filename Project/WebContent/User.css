@@ -1,0 +1,31 @@
+.user{
+	text-align : center;
+}
+.userR{
+	text-align : right;
+}
+.userL{
+	text-align : left;
+}
+.blue{
+	color : white;
+	background-color : #7abcff;
+}
+.green{
+	color : white;
+	background-color : #7aff7a;
+}
+.red{
+	color :white;
+	background-color : #ff7a7a;
+}
+.red1{
+	color : red;
+}
+.bg{
+	color : white;
+	background-color : #606060;
+}
+.logout{
+	color : red;
+}
