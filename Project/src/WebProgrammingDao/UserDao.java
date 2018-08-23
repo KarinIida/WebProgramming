@@ -45,6 +45,46 @@ public class UserDao {
 			}
 		}
 	}
+
+
+    public User findById(String loginId) {
+    	Connection conn = null;
+    	try {
+    		 conn = DBManager.getConnection();
+
+    		 String sql = "SELECT * FROM user WHERE id = ?";
+
+    		  PreparedStatement pStmt = conn.prepareStatement(sql);
+              pStmt.setString(1, loginId);
+              ResultSet rs = pStmt.executeQuery();
+
+              if (!rs.next()) {
+                  return null;
+              }
+
+              String loginIdDate = rs.getString("login_id");
+              String nameDate = rs.getString("name");
+              Date birthDate = rs.getDate("birth_date");
+              String createDate = rs.getString("create_date");
+              String updateDate = rs.getString("update_date");
+              return new User(0, loginIdDate,nameDate,birthDate,null,updateDate, updateDate);
+
+    }	catch (SQLException e) {
+        e.printStackTrace();
+        return null;
+    } finally {
+        if (conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+    }
+}
+
+
 	public List<User> findAll(){
 		Connection conn = null;
 		List<User> userList = new ArrayList<User>();

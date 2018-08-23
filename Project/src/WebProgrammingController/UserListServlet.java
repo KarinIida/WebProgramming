@@ -33,6 +33,7 @@ public class UserListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO 未実装：ログインセッションがない場合、ログイン画面にリダイレクトさせる
 
+//		if()
 //		response.sendRedirect("LoginServlet");
 
 		// ユーザ一覧情報を取得
@@ -43,7 +44,7 @@ public class UserListServlet extends HttpServlet {
 		request.setAttribute("userList", userList);
 
 		// ユーザ一覧のjspにフォワード
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userList.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/UserList.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -53,9 +54,9 @@ public class UserListServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO  未実装：検索処理全般
 
-//		request.setCharacterEncoding("UTF-8");
-//		String loginId = request.getParameter("loginId");
-//		String password = request.getParameter("password");
+		request.setCharacterEncoding("UTF-8");
+		String loginId = request.getParameter("loginId");
+		String password = request.getParameter("password");
 	}
 
 }

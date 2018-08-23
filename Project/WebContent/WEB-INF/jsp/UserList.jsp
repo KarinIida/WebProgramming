@@ -12,15 +12,15 @@
 	<meta http-equiv = "Delete" content = "URL = file:///C:/pleiades/pleiades/workspace/Example/WebContent/UserDelete.jsp">
 	<link rel = "stylesheet" href = "User.css">
 	<title>ユーザ一覧</title>
-</head>
+	</head>
 
 <body>
 	<div class = "bg">
-	<p class = "userR">ユーザ名さん
-	<a href = "file:///C:/pleiades/pleiades/workspace/Example/WebContent/UserScreen.jsp">
-	<small><span style = "color:#ff0000;">ログアウト</span></small></a></p></div>
+	<p class = "userR"> ${userInfo.name}さん　　
+	<a href = "LogoutServlet" style = "text-decoration : none">
+		<small><span class = "red1">ログアウト</span></small></a></p></div>
 	<h1 class = "user"><strong>ユーザ一覧</strong></h1>
-	<p class = "userR"><a href = "file:///C:/pleiades/pleiades/workspace/Example/WebContent/UserNewEntry.jsp">
+	<p class = "userR"><a href = "UserNewEntryServlet">
 		<small>新規登録</small></a></p>
 
 	<form method="post" action="#" class="form-horizontal">
@@ -31,45 +31,32 @@
 		<p class = "userR"><input type = "submit" value = "    検索    "></p>
 	</form>
 
-	<hr><table border = "検索結果" >
-		<tr><th>ログインID</th>
-		<th>ユーザ名</th>
-		<th>生年月日</th>
-		<th></th>
-	</tr>
-		<tr>
-		<td>id0001</td>
-		<td>田中太郎</td>
-		<td>1989年04月26日</td>
-		<td><a href = "file:///C:/pleiades/pleiades/workspace/Example/WebContent/UserDetail.jsp"
-				style = "text-decoration : none"><span class = "blue">詳細</span></a>
-			<a href = "file:///C:/pleiades/pleiades/workspace/Example/WebContent/UserUpdate.jsp"
-				style = "text-decoration : none"><span class = "green">更新</span></a>
-			<a href = "file:///C:/pleiades/pleiades/workspace/Example/WebContent/UserDelete.jsp"
-				style = "text-decoration : none"><span class = "red">削除</span></a></td>
-	</tr>
-	<tr>
-		<td>id0002</td>
-		<td>佐藤二朗</td>
-		<td>2001年11月12日</td>
-		<td><a href = "file:///C:/pleiades/pleiades/workspace/Example/WebContent/UserDetail.jsp"
-				style = "text-decoration : none"><span class = "blue">詳細</span></a>
-			<a href = "file:///C:/pleiades/pleiades/workspace/Example/WebContent/UserUpdate.jsp"
-				style = "text-decoration : none"><span class = "green">更新</span></a>
-			<a href = "file:///C:/pleiades/pleiades/workspace/Example/WebContent/UserDelete.jsp"
-				style = "text-decoration : none"><span class = "red">削除</span></a></td>
-	</tr>
-	<tr>
-		<td>id0003</td>
-		<td>佐川真司</td>
-		<td>2000年01月01日</td>
-		<td><a href = "file:///C:/pleiades/pleiades/workspace/Example/WebContent/UserDetail.jsp"
-				style = "text-decoration : none"><span class = "blue">詳細</span></a>
-			<a href = "file:///C:/pleiades/pleiades/workspace/Example/WebContent/UserUpdate.jsp"
-				style = "text-decoration : none"><span class = "green">更新</span></a>
-			<a href = "file:///C:/pleiades/pleiades/workspace/Example/WebContent/UserDelete.jsp"
-				style = "text-decoration : none"><span class = "red">削除</span></a></td>
-	</tr>
-	</table>
+	<hr>
+		<table border = "検索結果" align = "center">
+		<thead>
+			<tr><th>ログインID</th>
+			<th>ユーザ名</th>
+			<th>生年月日</th>
+			<th></th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<c:forEach var = "user" items = "${userList}">
+				<tr>
+				<td>${user.loginId}</td>
+				<td>${user.name}</td>
+				<td>${user.birthDate}</td>
+				<td><a href = "UserDetailServlet?id=${user.id}"
+						style = "text-decoration : none"><span class = "blue">　詳細　</span></a>
+					<a href = "UserUpdateServlet?id=${user.id}"
+						style = "text-decoration : none"><span class = "green">　更新　</span></a>
+					<a href = "UserDeleteServlet?id=${user.id}"
+						style = "text-decoration : none"><span class = "red">　削除　</span></a></td>
+				</tr>
+			</c:forEach>
+		</tbody>
+		</table>
+
 </body>
 </html>
