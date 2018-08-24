@@ -35,7 +35,6 @@ public class UserDetailServlet extends HttpServlet{
 
 			UserDao userDao = new UserDao();
 			User userList = userDao.findById(id);
-//			findAll()
 
 //			// TODO  未実装：ユーザ情報をリクエストスコープにセットしてjspにフォワード
 //			メソッド

@@ -2,6 +2,7 @@ package WebProgrammingController;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,11 +26,34 @@ public class UserUpdateServlet extends HttpServlet{
 		String id = request.getParameter("id");
 		System.out.println(id);
 
-		String name = request.getParameter("name");
-		String date = request.getParameter("date");
+		request.setCharacterEncoding("UTF-8");
 
 		UserDao userDao = new UserDao();
-		User user = userDao.findByLoginInfo(name, date);
+		User userList = userDao.findById(id);
 
+		request.setAttribute("user", userList);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/UserUpdate.jsp");
+		dispatcher.forward(request, response);
+	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+		throws ServletException, IOException {
+
+		request.setCharacterEncoding("UTF-8");
+
+		String password = request.getParameter("password");
+		String confirm = request.getParameter("confirm");
+		String name = request.getParameter("name");
+		String birthDate = request.getParameter("birthdate");
+
+		if (password != confirm || name == null || birthDate == null) {
+			System.out.println("error");
+
+			request.setAttribute("errMsg", "入力された内容は正しくありません。");
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/UserUpdate.jsp");
+			dispatcher.forward(request, response);
+			return;
+		}
+		response.sendRedirect("UserListServlet");
 	}
 }

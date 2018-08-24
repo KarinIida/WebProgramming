@@ -20,8 +20,7 @@
 	</header>
 
 	<c:if test = "${errMsg != null}">
-		<div class = "alert alert-danger" role = "alert">
-			<span class = "red1">${errMsg}</span>
+		<div class = "alert alert-danger" role = "alert"><span class = "red1">${errMsg}</span>
 		</div>
 	</c:if>
 

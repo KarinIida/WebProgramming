@@ -46,7 +46,6 @@ public class UserDao {
 		}
 	}
 
-
     public User findById(String loginId) {
     	Connection conn = null;
     	try {
@@ -84,6 +83,40 @@ public class UserDao {
     }
 }
 
+    public User findByEntry(String loginId,  String name, String birthDate , String password) {
+    	Connection conn = null;
+    	try {
+    		conn = DBManager.getConnection();
+    		String sql = "INSERT INTO user (login_id, password, name, birth_date, create_date, update_date)VALUES (?, ?, ?, ?, now(), now())";
+
+    		PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			pStmt.setString(1, loginId);
+			pStmt.setString(2, password);
+			pStmt.setString(3, name);
+			pStmt.setString(4, birthDate);
+
+ 			int result = pStmt.executeUpdate();
+
+    	} catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    return null;
+                 }
+            }
+        }
+		return null;
+    }
+
+    public User findByUpdate(String password, String confirm, String name, String birthDate) {
+
+    }
 
 	public List<User> findAll(){
 		Connection conn = null;
@@ -93,6 +126,8 @@ public class UserDao {
 			String sql = "SELECT * FROM user";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
+
+//			String sql = "INSERT INTO user VALUES (id, rs.login_id, rs.name, rs.birth_date, rs.password, rs.create_date, rs.update_date)"
 
 			while(rs.next()) {
 				int id = rs.getInt("id");

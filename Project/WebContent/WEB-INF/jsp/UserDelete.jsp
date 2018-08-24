@@ -17,11 +17,13 @@
 		<a href = "LogoutServlet">
 			<small><span class = "red1">ログアウト</span></small></a></p></div>
 		<p class = "user"><strong>ユーザ削除確認</strong></p>
-		<p>ログインID：${userInfo.loginId}
+		<p>ログインID：${user.loginId}
 		<br>を本当に削除してよろしいでしょうか。</p>
-		<p class = "user"><a href = "UserListServlet">
-			<input type = "submit" value = "キャンセル"></a>
-   		<input type = "submit" value = "OK"></p>
+		<p class = "user">
+			<a href = "UserListServlet">
+				<input type = "submit" value = "キャンセル"></a>
+			<a href = "UserListServlet">
+				<input type = "submit" value = "OK"></a></p>
 	</body>
 
 </html>
