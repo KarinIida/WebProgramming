@@ -34,6 +34,7 @@ public class UserUpdateServlet extends HttpServlet{
 		request.setAttribute("user", userList);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/UserUpdate.jsp");
 		dispatcher.forward(request, response);
+		return;
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
@@ -43,9 +44,10 @@ public class UserUpdateServlet extends HttpServlet{
 		String password = request.getParameter("password");
 		String confirm = request.getParameter("confirm");
 		String name = request.getParameter("name");
-		String birthDate = request.getParameter("birthdate");
+		String birthDate = request.getParameter("birthDate");
+		String id = request.getParameter("id");
 
-		if (password != confirm || name == null || birthDate == null) {
+		if (!password.equals(confirm) || name.equals("") || birthDate.equals("")) {
 			System.out.println("error");
 
 			request.setAttribute("errMsg", "入力された内容は正しくありません。");
@@ -54,6 +56,11 @@ public class UserUpdateServlet extends HttpServlet{
 			dispatcher.forward(request, response);
 			return;
 		}
+//		Dao作成
+//		int result = pStmt.executeUpdate();
+
+		UserDao userDao = new UserDao();
+		User user = userDao.findByUpdate(password, name, birthDate, id);
 		response.sendRedirect("UserListServlet");
 	}
 }

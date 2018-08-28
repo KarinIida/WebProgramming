@@ -4,19 +4,19 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-<meta charset="UTF-8">
-<meta http-equiv = "Logout" content = "URL = file:///C:/pleiades/pleiades/workspace/Example/WebContent/UserScreen.jsp">
-<meta http-equiv = "List" content = "URL = file:///C:/pleiades/pleiades/workspace/Example/WebContent/UserList.jsp">
-<link rel = "stylesheet" href = "User.css">
-<title>ユーザ情報更新</title>
-</head>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv = "Logout" content = "URL = file:///C:/pleiades/pleiades/workspace/Example/WebContent/UserScreen.jsp">
+		<meta http-equiv = "List" content = "URL = file:///C:/pleiades/pleiades/workspace/Example/WebContent/UserList.jsp">
+		<link rel = "stylesheet" href = "User.css">
+		<title>ユーザ情報更新</title>
+	</head>
 
-<body>
-<div class = "bg">
-<p class = "userR">${userInfo.name}さん
-<a href = "LogoutServlet" style = "text-decoration : none">
-	<small><span class = "red1">　ログアウト</span></small></a></p></div>
+	<body>
+		<div class = "bg">
+		<p class = "userR">${userInfo.name}さん
+		<a href = "LogoutServlet" style = "text-decoration : none">
+			<small><span class = "red1">　ログアウト</span></small></a></p></div>
 
 	<div class = "user">
 		<header>
@@ -30,11 +30,12 @@
 
 	<form class="form-signin" action="UserUpdateServlet" method="post">
 		<p>ログインID　${user.loginId}</p>
-		<p>パスワード　<input type = password name = "パスワード"></p>
-		<p>パスワード（確認）　<input type = password name = "パスワード（確認）"></p>
-		<p>ユーザ名　<input type = "text" name ="ユーザ名" value = "${user.name}"></p>
-		<p>生年月日　<input type = "date" name ="生年月日" value = "${user.birthDate}"></p>
-		<p><input type = "submit" value = "更新"></p>
+		<p>パスワード　<input type = password name = "password"></p>
+		<p>パスワード（確認）　<input type = password name = "confirm"></p>
+		<p>ユーザ名　<input type = "text" name ="name" value = "${user.name}"></p>
+		<p>生年月日　<input type = "date" name ="birthDate" value = "${user.birthDate}"></p>
+		<input type="hidden" value="${user.id}" name = "id">
+		<p><a href ="/WEB-INF/jsp/UserList.jsp"><input type = "submit" value = "更新"></a></p>
 	</form>
 
 	</div>

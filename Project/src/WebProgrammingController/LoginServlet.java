@@ -36,7 +36,9 @@ public class LoginServlet extends HttpServlet {
 
 		// TODO 未実装：ログインセッションがある場合、ユーザ一覧画面にリダイレクトさせる
 
+//		if(){
 //		response.sendRedirect("LoginServlet");
+//		}
 
 		// フォワード
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/UserScreen.jsp");

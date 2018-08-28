@@ -29,16 +29,22 @@ public class UserDeleteServlet extends HttpServlet{
 		request.setCharacterEncoding("UTF-8");
 
 		UserDao userDao = new UserDao();
-		User user = userDao.findById(id);
+		User userList = userDao.findById(id);
 
-		
-	if (user == null) {
-		
-		request.setAttribute("errMsg", "入力された内容は正しくありません。");
-
-		request.setAttribute("user", user);
+		request.setAttribute("user", userList);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/UserDelete.jsp");
 		dispatcher.forward(request, response);
 		return;
+	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+		throws ServletException, IOException {
+
+		request.setCharacterEncoding("UTF-8");
+
+		String id = request.getParameter("id");
+
+		UserDao userDao = new UserDao();
+		User user = userDao.findByDelete(id);
+		response.sendRedirect("UserListServlet");
 	}
 }

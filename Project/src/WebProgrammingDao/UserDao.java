@@ -66,7 +66,7 @@ public class UserDao {
               Date birthDate = rs.getDate("birth_date");
               String createDate = rs.getString("create_date");
               String updateDate = rs.getString("update_date");
-              return new User(0, loginIdDate,nameDate,birthDate,null,updateDate, updateDate);
+              return new User(Integer.parseInt(loginId), loginIdDate,nameDate,birthDate,null,updateDate, updateDate);
 
     }	catch (SQLException e) {
         e.printStackTrace();
@@ -114,8 +114,62 @@ public class UserDao {
 		return null;
     }
 
-    public User findByUpdate(String password, String confirm, String name, String birthDate) {
+    public User findByUpdate(String password, String name, String birthDate, String id) {
+    	Connection conn = null;
+    	try {
+    		conn = DBManager.getConnection();
+    		String sql = "UPDATE user SET password = ?, name = ?, birth_date = ? WHERE id = ?";
 
+    		PreparedStatement pStmt = conn.prepareStatement(sql);
+
+    		pStmt.setString(1, password);
+    		pStmt.setString(2, name);
+			pStmt.setString(3, birthDate);
+			pStmt.setString(4, id);
+
+			int result = pStmt.executeUpdate();
+
+    	} catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    return null;
+                 }
+            }
+        }
+		return null;
+    }
+
+    public 	User findByDelete(String id) {
+    	Connection conn = null;
+		try {
+			conn = DBManager.getConnection();
+			String sql = "DELETE FROM user WHERE id = ?";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			pStmt.setString(1, id);
+
+			int result = pStmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					return null;
+				}
+			}
+		}
+		return null;
     }
 
 	public List<User> findAll(){
@@ -126,8 +180,6 @@ public class UserDao {
 			String sql = "SELECT * FROM user";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
-
-//			String sql = "INSERT INTO user VALUES (id, rs.login_id, rs.name, rs.birth_date, rs.password, rs.create_date, rs.update_date)"
 
 			while(rs.next()) {
 				int id = rs.getInt("id");

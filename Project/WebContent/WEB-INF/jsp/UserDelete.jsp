@@ -17,13 +17,18 @@
 		<a href = "LogoutServlet">
 			<small><span class = "red1">ログアウト</span></small></a></p></div>
 		<p class = "user"><strong>ユーザ削除確認</strong></p>
-		<p>ログインID：${user.loginId}
-		<br>を本当に削除してよろしいでしょうか。</p>
-		<p class = "user">
-			<a href = "UserListServlet">
-				<input type = "submit" value = "キャンセル"></a>
-			<a href = "UserListServlet">
-				<input type = "submit" value = "OK"></a></p>
+
+			<p>ログインID：${user.loginId}
+			<br>を本当に削除してよろしいでしょうか。</p>
+
+		<form class="form-signin" action="UserDeleteServlet" method="post">
+			<p class = "user">
+				<a href = "UserListServlet">
+					<input type = "button" value = "キャンセル"></a>
+				<input type="hidden" value="${user.id}" name = "id">
+					<input type = "submit" value = "OK">
+				</p>
+		</form>
 	</body>
 
 </html>

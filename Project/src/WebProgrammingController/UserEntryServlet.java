@@ -38,7 +38,7 @@ private static final long serialVersionUID = 1L;
 		String name = request.getParameter("name");
 		String birthDate = request.getParameter("birthDate");
 
-		if (password != confirm || loginId == null || password == null || confirm == null || name == null || birthDate == null) {
+		if (!password.equals(confirm)  || loginId.equals("") || password.equals("") || confirm.equals("") || name.equals("") || birthDate.equals("")) {
 			System.out.println("error");
 
 			request.setAttribute("errMsg", "入力された内容は正しくありません。");
