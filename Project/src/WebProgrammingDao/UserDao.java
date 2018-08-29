@@ -177,7 +177,7 @@ public class UserDao {
 		List<User> userList = new ArrayList<User>();
 		try {
 			conn = DBManager.getConnection();
-			String sql = "SELECT * FROM user";
+			String sql = "SELECT * FROM user WHERE id != 1";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 

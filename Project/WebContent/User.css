@@ -29,3 +29,11 @@
 .logout{
 	color : red;
 }
+.TdV{
+	text-decoration : none;
+	visibility : hidden;
+}
+.relative{
+	position : relative;
+	rigth : 20px;
+}

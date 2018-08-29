@@ -35,10 +35,13 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		// TODO 未実装：ログインセッションがある場合、ユーザ一覧画面にリダイレクトさせる
+		HttpSession session = request.getSession();
+		if(session.getAttribute("userInfo") != null){
+			response.sendRedirect("UserListServlet");
+			return;
+		}
 
-//		if(){
-//		response.sendRedirect("LoginServlet");
-//		}
+//		session.getAttribute("userInfo")
 
 		// フォワード
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/UserScreen.jsp");

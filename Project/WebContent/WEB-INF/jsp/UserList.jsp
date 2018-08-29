@@ -4,19 +4,13 @@
 <!DOCTYPE html>
 <html>
 	<head>
-	<meta charset="UTF-8">
-	<meta http-equiv = "Logout" content = "URL = file:///C:/pleiades/pleiades/workspace/Example/WebContent/UserScreen.jsp">
-	<meta http-equiv = "Entry" content = "URL = file:///C:/pleiades/pleiades/workspace/Example/WebContent/UserNewEntry.jsp">
-	<meta http-equiv = "Detail" content = "URL = file:///C:/pleiades/pleiades/workspace/Example/WebContent/UserDetail.jsp">
-	<meta http-equiv = "Update" content = "URL = file:///C:/pleiades/pleiades/workspace/Example/WebContent/UserUpdate.jsp">
-	<meta http-equiv = "Delete" content = "URL = file:///C:/pleiades/pleiades/workspace/Example/WebContent/UserDelete.jsp">
 	<link rel = "stylesheet" href = "User.css">
 	<title>ユーザ一覧</title>
 	</head>
 
 <body>
 	<div class = "bg">
-	<p class = "userR"> ${userInfo.name}さん　　
+	<p id = "relative" class = "userR"> ${userInfo.name}さん　　
 	<a href = "LogoutServlet" style = "text-decoration : none">
 		<small><span class = "red1">ログアウト</span></small></a></p></div>
 	<h1 class = "user"><strong>ユーザ一覧</strong></h1>
@@ -47,12 +41,24 @@
 				<td>${user.loginId}</td>
 				<td>${user.name}</td>
 				<td>${user.birthDate}</td>
-				<td><a href = "UserDetailServlet?id=${user.id}"
-						style = "text-decoration : none"><span class = "blue">　詳細　</span></a>
-					<a href = "UserUpdateServlet?id=${user.id}"
-						style = "text-decoration : none"><span class = "green">　更新　</span></a>
-					<a href = "UserDeleteServlet?id=${user.id}"
-						style = "text-decoration : none"><span class = "red">　削除　</span></a></td>
+
+				<c:if test = "${userInfo.loginId == admin}">
+					<td><a href = "UserDetailServlet?id=${user.id}"
+							style = "text-decoration : none"><span class = "blue">　詳細　</span></a>
+						<a href = "UserUpdateServlet?id=${user.id}"
+							style = "text-decoration : none"><span class = "green">　更新　</span></a>
+						<a href = "UserDeleteServlet?id=${user.id}"
+							style = "text-decoration : none"><span class = "red">　削除　</span></a></td>
+				</c:if>
+
+				<c:if test = "${userInfo == loginId}">
+					<td><a href = "UserDetailServlet?id=${user.id}"
+							style = "text-decoration : none"><span class = "blue">　詳細　</span></a>
+						<a href = "UserUpdateServlet?id=${user.id}"
+							style = "text-decoration : none"><span class = "green">　更新　</span></a>
+						<a href = "UserDeleteServlet?id=${user.id}"
+							style = "text-decoration : none"><span class = "red">　削除　</span></a></td>
+				</c:if>
 				</tr>
 			</c:forEach>
 		</tbody>
