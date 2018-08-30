@@ -48,7 +48,7 @@ private static final long serialVersionUID = 1L;
 			return;
 		}
 		UserDao userDao = new UserDao();
-		User user = userDao.findByEntry(loginId, name, birthDate, password);
+		User user = userDao.findByEntry(loginId, name, birthDate, password ,confirm);
 
 		response.sendRedirect("UserListServlet");
 	}

@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import WebProgrammingDao.UserDao;
 import WebProgrammingModel.User;
@@ -32,9 +33,11 @@ public class UserListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO 未実装：ログインセッションがない場合、ログイン画面にリダイレクトさせる
-
-//		if()
-//		response.sendRedirect("LoginServlet");
+		HttpSession session = request.getSession();
+		if(session.getAttribute("userInfo") == null){
+			response.sendRedirect("LoginServlet");
+			return;
+		}
 
 		// ユーザ一覧情報を取得
 		UserDao userDao = new UserDao();
@@ -55,8 +58,21 @@ public class UserListServlet extends HttpServlet {
 		// TODO  未実装：検索処理全般
 
 		request.setCharacterEncoding("UTF-8");
-		String loginId = request.getParameter("loginId");
-		String password = request.getParameter("password");
+
+		String loginIdP = request.getParameter("loginIdP");
+		String userNameP = request.getParameter("userNameP");
+		String dateStartP = request.getParameter("dateStartP");
+		String dateEndP = request.getParameter("dateEndP");
+
+		UserDao userDao = new UserDao();
+		List<User> user = userDao.findSearch(loginIdP, userNameP, dateStartP, dateEndP);
+
+		// リクエストスコープにユーザ一覧情報をセット
+		request.setAttribute("userList", user);
+
+		// ユーザ一覧のjspにフォワード
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/UserList.jsp");
+		dispatcher.forward(request, response);
 	}
 
 }

@@ -10,23 +10,24 @@
 
 <body>
 	<div class = "bg">
-	<p id = "relative" class = "userR"> ${userInfo.name}さん　　
+	<p class = "userR"> ${userInfo.name}さん　　
 	<a href = "LogoutServlet" style = "text-decoration : none">
 		<small><span class = "red1">ログアウト</span></small></a></p></div>
 	<h1 class = "user"><strong>ユーザ一覧</strong></h1>
 	<p class = "userR"><a href = "UserNewEntryServlet">
 		<small>新規登録</small></a></p>
 
-	<form method="post" action="#" class="form-horizontal">
-		<p class="user">ログインID　<input type="text" name="ログインID">
-			</p><p class = "user">ユーザ名　　<input type = "text" name = "ユーザ名"></p>
-		<p class = "user">生年月日　　<input type = "date" name = "生年月日"> ~
-			<input type = "date" name = "生年月日"></p>
-		<p class = "userR"><input type = "submit" value = "    検索    "></p>
+	<form method="post" action="UserListServlet" class="form-horizontal">
+		<p class="user">ログインID　<input type="text" name="loginIdP">
+			</p><p class = "user">ユーザ名　　<input type = "text" name = "userNameP"></p>
+		<p class = "user">生年月日　　<input type = "date" name = "dateStartP"> ~
+			<input type = "date" name = "dateEndP"></p>
+		<p class = "userR"><a href = "UserListServlet">
+			<input type = "submit" value = "　検索　"></a></p>
 	</form>
 
 	<hr>
-		<table border = "検索結果" align = "center">
+		<table border = "検索結果" align="center">
 		<thead>
 			<tr><th>ログインID</th>
 			<th>ユーザ名</th>
@@ -42,23 +43,25 @@
 				<td>${user.name}</td>
 				<td>${user.birthDate}</td>
 
-				<c:if test = "${userInfo.loginId == admin}">
+<c:if test="${userInfo.loginId == 'admin'}">
 					<td><a href = "UserDetailServlet?id=${user.id}"
 							style = "text-decoration : none"><span class = "blue">　詳細　</span></a>
 						<a href = "UserUpdateServlet?id=${user.id}"
 							style = "text-decoration : none"><span class = "green">　更新　</span></a>
 						<a href = "UserDeleteServlet?id=${user.id}"
 							style = "text-decoration : none"><span class = "red">　削除　</span></a></td>
-				</c:if>
+</c:if>
 
-				<c:if test = "${userInfo == loginId}">
-					<td><a href = "UserDetailServlet?id=${user.id}"
+<c:if test="${userInfo.loginId != 'admin'}">
+	<td><a href = "UserDetailServlet?id=${user.id}"
 							style = "text-decoration : none"><span class = "blue">　詳細　</span></a>
-						<a href = "UserUpdateServlet?id=${user.id}"
+</c:if>
+
+<c:if test="${user.loginId == userInfo.loginId}">
+	<a href = "UserUpdateServlet?id=${user.id}"
 							style = "text-decoration : none"><span class = "green">　更新　</span></a>
-						<a href = "UserDeleteServlet?id=${user.id}"
-							style = "text-decoration : none"><span class = "red">　削除　</span></a></td>
-				</c:if>
+</c:if>
+
 				</tr>
 			</c:forEach>
 		</tbody>

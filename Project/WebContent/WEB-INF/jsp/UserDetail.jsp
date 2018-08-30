@@ -13,7 +13,7 @@
 
 	<body>
 		<div class = "bg">
-		<p class = "userR"> ${user.name}さん
+		<p class = "userR"> ${userInfo.name}さん　　
 		<a href = "LogoutServlet" style = "text-decoration : none">
 			<small><span class = "red1">　ログアウト</span></small></a></p></div>
 
