@@ -63,13 +63,10 @@ public class UserUpdateServlet extends HttpServlet{
 			User user = userDao.findByUpdateNoPassword(name, birthDate, id);
 			response.sendRedirect("UserListServlet");
 			return;
-
 		}
 
 		UserDao userDao = new UserDao();
 		User user = userDao.findByUpdate(password, name, birthDate, id);
-
-
 
 		response.sendRedirect("UserListServlet");
 	}
