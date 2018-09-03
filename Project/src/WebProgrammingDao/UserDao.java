@@ -89,25 +89,24 @@ public class UserDao {
     }
 }
 
-    public User findByEntry(String loginId, String name, String birthDate , String password, String confirm) {
+    public User findByEntry(String loginId, String name, String birthDate , String password) throws SQLException{
     	Connection conn = null;
     	try {
     		conn = DBManager.getConnection();
-    		String sql = "INSERT INTO user (login_id, password, confirm, name, birth_date, create_date, update_date)VALUES (?, ? ,? ,?, ?, now(), now())";
+    		String sql = "INSERT INTO user (login_id, password, name, birth_date, create_date, update_date)VALUES (?, ? ,? , ?, now(), now())";
 
     		PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			pStmt.setString(1, loginId);
 			pStmt.setString(2, md5(password));
-			pStmt.setString(3, confirm);
-			pStmt.setString(4, name);
-			pStmt.setString(5, birthDate);
+			pStmt.setString(3, name);
+			pStmt.setString(4, birthDate);
 
  			int result = pStmt.executeUpdate();
 
     	} catch (SQLException e) {
             e.printStackTrace();
-            return null;
+            throw e;
         } finally {
             if (conn != null) {
                 try {
@@ -133,6 +132,36 @@ public class UserDao {
     		pStmt.setString(2, name);
 			pStmt.setString(3, birthDate);
 			pStmt.setString(4, id);
+
+			int result = pStmt.executeUpdate();
+
+    	} catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    return null;
+                 }
+            }
+        }
+		return null;
+    }
+
+    public User findByUpdateNoPassword(String name, String birthDate, String id) {
+    	Connection conn = null;
+    	try {
+    		conn = DBManager.getConnection();
+    		String sql = "UPDATE user SET name = ?, birth_date = ? WHERE id = ?";
+
+    		PreparedStatement pStmt = conn.prepareStatement(sql);
+
+    		pStmt.setString(1, name);
+			pStmt.setString(2, birthDate);
+			pStmt.setString(3, id);
 
 			int result = pStmt.executeUpdate();
 
@@ -286,6 +315,5 @@ public class UserDao {
 		String result = DatatypeConverter.printHexBinary(bytes);
 		System.out.println(result);
 		return result;
-
 	}
 }

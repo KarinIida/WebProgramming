@@ -47,6 +47,7 @@ public class UserUpdateServlet extends HttpServlet{
 		String birthDate = request.getParameter("birthDate");
 		String id = request.getParameter("id");
 
+
 		if (!password.equals(confirm) || name.equals("") || birthDate.equals("")) {
 			System.out.println("error");
 
@@ -56,11 +57,19 @@ public class UserUpdateServlet extends HttpServlet{
 			dispatcher.forward(request, response);
 			return;
 		}
-//		Dao作成
-//		int result = pStmt.executeUpdate();
+
+		if(password.equals("") && confirm.equals("")) {
+			UserDao userDao = new UserDao();
+			User user = userDao.findByUpdateNoPassword(name, birthDate, id);
+			response.sendRedirect("UserListServlet");
+			return;
+
+		}
 
 		UserDao userDao = new UserDao();
 		User user = userDao.findByUpdate(password, name, birthDate, id);
+
+
 
 		response.sendRedirect("UserListServlet");
 	}

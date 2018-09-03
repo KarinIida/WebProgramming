@@ -1,6 +1,7 @@
 package WebProgrammingController;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -48,8 +49,17 @@ private static final long serialVersionUID = 1L;
 			return;
 		}
 		UserDao userDao = new UserDao();
-		User user = userDao.findByEntry(loginId, name, birthDate, password ,confirm);
+		try {
+			User user = userDao.findByEntry(loginId, name, birthDate, password );
+		} catch(SQLException e) {
+			System.out.println("duplication");
 
+			request.setAttribute("errMsg", "入力された内容は重複しています。");
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/UserNewEntry.jsp");
+			dispatcher.forward(request, response);
+			return;
+		}
 		response.sendRedirect("UserListServlet");
 	}
 }
